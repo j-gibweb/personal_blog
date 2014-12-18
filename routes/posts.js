@@ -20,19 +20,20 @@ module.exports = function(app) {
     });
   };
 
-  indexPage = function(req, res) {
-    console.log("GET - /posts");
-    return Post.find(function(err, posts) {
-      if(!err) {
-        // return res.send(posts);
-        return res.render("index", {posts: posts});
-      } else {
-        res.statusCode = 500;
-        console.log('Internal error(%d): %s',res.statusCode,err.message);
-        return res.send({ error: 'Server error' });
-      }
-    });
-  };
+  // indexPage = function(req, res) {
+  //   console.log("GET - /posts");
+  //   return Post.find(function(err, posts) {
+  //     if(!err) {
+  //       // return res.send(posts);
+  //       return res.render("index", {posts: posts});
+  //     } else {
+  //       res.statusCode = 500;
+  //       console.log('Internal error(%d): %s',res.statusCode,err.message);
+  //       return res.send({ error: 'Server error' });
+  //     }
+  //   });
+  // };
+
   /**
    * Find and retrieves a single post by its ID
    * @param {Object} req HTTP request object.
@@ -172,8 +173,6 @@ module.exports = function(app) {
 
   //Link routes and actions
   app.get('/posts', findAllPosts);
-  // render blog posts on homepage
-  app.get('/', indexPage);
   app.get('/secretroute', newPost);
   app.get('/posts/:id', findById);
   app.post('/posts', addPost);
