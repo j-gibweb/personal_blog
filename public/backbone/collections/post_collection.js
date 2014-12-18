@@ -6,7 +6,7 @@ window.PostCollection = Backbone.Collection.extend({
   },
   parse: function(response) {
     response.forEach(function(x) {
-      console.log(x)
+      // console.log(x)
     })
   }
 

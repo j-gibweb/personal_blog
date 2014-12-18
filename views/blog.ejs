@@ -1,11 +1,11 @@
-<link href="css/blog.css" rel="stylesheet">
+
 
 <script type="text/javascript">
 $(function(){
   var posts = $.ajax('/posts');
   posts.done(function(obj) {
     obj.forEach(function(o) {
-      var html = ("<p class='tiny-text'><em>"+ o.title +"</em></p>" + "<p class='tiny-text'>"+ o.body +"</p>")
+      var html = ("<p class='title tiny-text'><em>"+ o.title +"</em></p>" + "<p class='tiny-text'>"+ o.body +"</p>")
       $('#posts').append(html)
     });
   });
@@ -15,8 +15,8 @@ $(function(){
 <section id="blog" class="content-section text-center">
   <div class="container">
     <div class="col-lg-8 col-lg-offset-2">
-      <h2>Blog</h2>
-      <p>Coming soon: my thoughts on everything</p>
+      <h1>Blog</h1>
+      <h5>My thoughts on things</h5>
       <section id="posts"></section>
     </div>
   </div>
@@ -24,5 +24,4 @@ $(function(){
 
 
 
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+

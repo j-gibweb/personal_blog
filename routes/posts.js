@@ -69,6 +69,7 @@ module.exports = function(app) {
    * @param {Object} res HTTP response object.
    */
   newPost = function(req, res) {
+    console.log(req)
     res.render('newPost')
   };
 
@@ -173,7 +174,7 @@ module.exports = function(app) {
 
   //Link routes and actions
   app.get('/posts', findAllPosts);
-  app.get('/secretroute', newPost);
+  app.get('/secret_create_route_go_away', newPost);
   app.get('/posts/:id', findById);
   app.post('/posts', addPost);
   app.put('/posts/:id', updatePost);

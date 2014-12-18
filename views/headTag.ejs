@@ -4,17 +4,14 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="description" content="a blog about music, code and whatnot">
+  <meta name="author" content="James Gibson Weber">
   
-  <!-- Bootstrap Core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="public/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom CSS -->
-  <link href="css/main-theme.css" rel="stylesheet">
+  <link href="public/css/main-theme.css" rel="stylesheet">
 
-  <!-- Custom Fonts -->
-  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="public/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
   <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 
@@ -26,33 +23,30 @@
   <![endif]-->
 
 
+  <script src="public/js/jquery.js"></script>
 
-  <!-- jQuery -->
-  <script src="js/jquery.js"></script>
+  <script src="public/js/bootstrap.min.js"></script>
 
-  <!-- Bootstrap Core JavaScript -->
-  <script src="js/bootstrap.min.js"></script>
+  <script src="public/js/jquery.easing.min.js"></script>
+  
+  <script src="public/js/main-theme.js"></script>
 
-  <!-- Plugin JavaScript -->
-  <script src="js/jquery.easing.min.js"></script>
-
-  <!-- Custom Theme JavaScript -->
-  <script src="js/main-theme.js"></script>
+  <script src="public/js/underscore.js"></script>  
+  <script src="public/js/backbone.js"></script>  
 
 
-  <script src="js/underscore.js"></script>  
-  <script src="js/backbone.js"></script>  
+  <script src="public/backbone/models/post_model.js"></script>
+  <script src="public/backbone/collections/post_collection.js"></script>
+  <script src="public/backbone/views/post_view.js"></script>
+  <script src="public/backbone/views/posts_view.js"></script>
+  <script src="public/backbone/router.js"></script>
 
-
-
-  <script src="backbone/models/post_model.js"></script>
-  <script src="backbone/collections/post_collection.js"></script>
-  <script src="backbone/views/post_view.js"></script>
-  <script src="backbone/views/posts_view.js"></script>
-  <script src="backbone/router.js"></script>
 
   <script type="text/javascript">
     $(function(){ BlogApp.start({pushState:false}) });
   </script>
+
+  <link href="public/css/blog.css" rel="stylesheet">
+
   
 </head>

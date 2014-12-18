@@ -1,3 +1,12 @@
+
+<!-- wysihtml core javascript with default toolbar functions --> 
+<script src="bower_components/wysihtml/dist/wysihtml5x-toolbar.min.js"></script>
+
+<!-- rules defining tags, attributes and classes that are allowed -->
+<script src="bower_components/wysihtml/parser_rules/advanced_and_extended.js"></script>
+
+
+
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/css/bootstrap.min.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
@@ -9,11 +18,22 @@
       <form role="form">
         <div class="form-group">
           <label for="title">Title</label>
-          <input name="title" type="text" class="form-control" id="postTitle" value="Hey" style="width:500px; height:50px;">
+          <input name="title" type="text" class="form-control" id="postTitle" value="" style="width:500px; height:50px;">
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Body</label>
-          <input name="body" type="text" class="form-control" id="postBody" value="Dude" style="width:500px; height:500px;">
+          <label for="body">Body</label>
+
+
+          <!-- toolbar with suitable buttons and dialogues -->
+          <div id="toolbar">
+            <a data-wysihtml5-command="bold">bold</a>
+            <a data-wysihtml5-command="italic">italic</a>
+            <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
+            <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">P</a>
+           </div>
+
+          <!-- element to edit -->
+          <textarea name="body" type="text" class="form-control" id="editor" value="" rows="20" style="width:500px"></textarea>
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
@@ -21,6 +41,13 @@
     </div>
   </div>
 </div>
+
+<script>
+  var editor = new wysihtml5.Editor('editor', {
+    toolbar: 'toolbar',
+    parserRules:  wysihtml5ParserRules // defined in file parser rules javascript
+  });
+</script>
 
 
 <script type="text/javascript">
@@ -33,8 +60,7 @@ $('form').on('submit', function(event) {
     url: '/posts',
     data: postData 
   }).done(function(value) {
-    console.log(value);
-    $('.container').append(value);
+    $('.container').html("SENT");
     form.trigger('reset');
   });
 });

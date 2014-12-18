@@ -1,8 +1,17 @@
 .tiny-text {
-  font-size: 14px;
-  font-family: monospace;
+  font-size: 20px;
+  /*font-family: monospace;*/
+  font-family: Andale Mono, monospace;
 }
 
 .hidden{
   display: none;
+}
+
+#posts{
+  text-align: left;
+}
+ 
+#posts .title{
+ text-align: center; 
 }

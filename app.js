@@ -4,8 +4,9 @@ var bodyParser = require('body-parser');
 var db = require('./db');
 var _ = require('underscore');
 
+
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/public/'));
+app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({extended:false}));
 
 app.get('/', function(req, res) {
