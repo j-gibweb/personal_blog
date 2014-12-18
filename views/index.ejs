@@ -1,8 +1,23 @@
-<html>
-<head>
-  <title></title>
-</head>
-<body>
-<%= thing %>
+<!DOCTYPE html>
+<html lang="en">
+<% include headTag.ejs %>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <% include navigation.ejs %>
+
+    <!-- Intro Header -->
+    <% include landing.ejs %>    
+
+    <!-- About Section -->
+    <% include about_me.ejs %>
+
+    <!-- Blog Section -->
+    <% include blog.ejs %>    
+
+    <!-- Footer -->
+    <% include footer.ejs %>
+    
 </body>
 </html>
