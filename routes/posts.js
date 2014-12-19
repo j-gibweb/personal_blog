@@ -20,20 +20,6 @@ module.exports = function(app) {
     });
   };
 
-  // indexPage = function(req, res) {
-  //   console.log("GET - /posts");
-  //   return Post.find(function(err, posts) {
-  //     if(!err) {
-  //       // return res.send(posts);
-  //       return res.render("index", {posts: posts});
-  //     } else {
-  //       res.statusCode = 500;
-  //       console.log('Internal error(%d): %s',res.statusCode,err.message);
-  //       return res.send({ error: 'Server error' });
-  //     }
-  //   });
-  // };
-
   /**
    * Find and retrieves a single post by its ID
    * @param {Object} req HTTP request object.
@@ -50,7 +36,8 @@ module.exports = function(app) {
       }
 
       if(!err) {
-        return res.send({ status: 'OK', post:post });
+        // return res.send({ status: 'OK', post:post });
+        return res.render('show', {post: post});
       } else {
 
         res.statusCode = 500;
@@ -61,15 +48,12 @@ module.exports = function(app) {
   };
 
 
-
-
   /**
    * Creates a new post from the data request
    * @param {Object} req HTTP request object.
    * @param {Object} res HTTP response object.
    */
   newPost = function(req, res) {
-    console.log(req)
     res.render('newPost')
   };
 
@@ -103,7 +87,11 @@ module.exports = function(app) {
   };
 
 
-
+  editPost = function(req, res) {
+    return Post.findById(req.params.id, function(err, post) {
+      return res.render('newPost', {post: post})
+    });
+  }
   /**
    * Update a post by its ID
    * @param {Object} req HTTP request object.
@@ -173,11 +161,19 @@ module.exports = function(app) {
   }
 
   //Link routes and actions
+  // index
   app.get('/posts', findAllPosts);
-  app.get('/secret_create_route_go_away', newPost);
+  // show
   app.get('/posts/:id', findById);
+  // new template
+  app.get('/posts/new', newPost);
+  // create
   app.post('/posts', addPost);
+  // update template
+  app.get('/posts/edit/:id', editPost);
+  // update
   app.put('/posts/:id', updatePost);
+  // delete
   app.delete('/posts/:id', deletePost);
 
 }

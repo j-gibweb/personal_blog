@@ -1,19 +1,18 @@
-
 <!-- wysihtml core javascript with default toolbar functions --> 
-<script src="bower_components/wysihtml/dist/wysihtml5x-toolbar.min.js"></script>
-
+<script src="/wysihtml/dist/wysihtml5x-toolbar.min.js"></script>
 <!-- rules defining tags, attributes and classes that are allowed -->
-<script src="bower_components/wysihtml/parser_rules/advanced_and_extended.js"></script>
+<script src="/wysihtml/parser_rules/advanced_and_extended.js"></script>
+<% include head.ejs %>
 
-
-
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/css/bootstrap.min.css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
+<style type="text/css">
+input#postTitle::selection{
+  background: #66D9D3;
+}
+</style>
 
 <div class="container">
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-10 col-md-offset-2">
 
       <form role="form">
         <div class="form-group">
@@ -33,7 +32,7 @@
            </div>
 
           <!-- element to edit -->
-          <textarea name="body" type="text" class="form-control" id="editor" value="" rows="20" style="width:500px"></textarea>
+          <textarea name="body" type="text" class="form-control" id="editor" rows="20" style="width:500px"></textarea>
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
@@ -43,25 +42,33 @@
 </div>
 
 <script>
+  var post =<%- JSON.stringify(post) %>;
+  $(function(){
+    $('#postTitle').val(post.title);
+    $('#editor').val(post.body);
+  })
+
   var editor = new wysihtml5.Editor('editor', {
     toolbar: 'toolbar',
     parserRules:  wysihtml5ParserRules // defined in file parser rules javascript
   });
-</script>
 
+  $('form').on('submit', function(event) {
+    event.preventDefault();
+    var form = $(this);
+    var postData = form.serialize();
+    
+    
 
-<script type="text/javascript">
-$('form').on('submit', function(event) {
-  event.preventDefault();
-  var form = $(this);
-  var postData = form.serialize();
-  $.ajax({
-    type: 'POST',
-    url: '/posts',
-    data: postData 
-  }).done(function(value) {
-    $('.container').html("SENT");
-    form.trigger('reset');
+    $.ajax({
+      // type: 'POST',
+      // url: '/posts',
+      data: postData 
+    }).done(function(value) {
+      alert("sent");
+      form.trigger('reset');
+    });
+
   });
-});
+
 </script>

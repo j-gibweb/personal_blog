@@ -1,23 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<% include headTag.ejs %>
+<!-- Landing -->
+<header id="landing" class="intro">
+    <div class="intro-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h1 class="brand-heading">J-GibWeb</h1>
+                    <!-- <p class="intro-text">This is my blog or something.</p> -->
+                    <a href="#about" class="btn btn-circle page-scroll">
+                        <i class="fa fa-hand-o-down animated"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-  
-  <!-- Navi -->
-  <% include navigation.ejs %>
+<!-- About Me -->
+<section id="about" class="container content-section text-center">
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <h2>Hi I'm James <img src="images/my_face.jpg" width="100" class="img-circle"></h2>
+            <p>I love to make internet things with JavaScript, Ruby, HTML and CSS</p>
+            <p>I love to make audible things with drums, guitars, singers, compressors and reverbs.</p>
+            <p>
+              Email me: <a class="magnify" href="mailto:j.gibweb@gmail.com">j.gibweb@gmail.com</a>
+            </p>
+             <ul class="list-inline banner-social-buttons">
+                <li>
+                    <a href="https://github.com/j-gibweb" class="btn btn-default btn-lg magnify"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                </li>
+                <li>
+                  <a href="http://soundcloud.com/dearmistermanager/" class="btn btn-default btn-lg magnify"><i class="fa fa-soundcloud fa-fw"></i> <span class="network-name">SoundCloud</span></a>
+                </li>
+                <li>
+                  <a href="http://www.linkedin.com/pub/james-weber/43/167/101/" class="btn btn-default btn-lg magnify"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">LinkedIn</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
 
-  <!-- Landing -->
-  <% include landing.ejs %>    
 
-  <!-- About Me -->
-  <% include about_me.ejs %>
+<!-- Blog -->
 
-  <!-- Blog -->
-  <% include blog.ejs %>
 
-  <!-- Footer -->
-  <% include footer.ejs %>
-  
-</body>
-</html>
+<script type="text/javascript">
+$(function(){
+  var posts = $.ajax('/posts');
+  posts.done(function(obj) {
+    obj.forEach(function(o) {
+      var html = (
+                  "<p class='title tiny-text'><em>"+ o.title +"</em></p>" 
+                  + "<a class='' href='/posts/"+ o._id +"'>"+ o._id +"</a>" 
+                  + "<p class='tiny-text'>"+ o.body +"</p>"
+                  );
+      
+      $('#posts').append(html)
+    });
+  });
+})
+</script>
+
+<section id="blog" class="content-section text-center">
+  <div class="container">
+    <div class="col-lg-8 col-lg-offset-2">
+      <h1>Blog</h1>
+      <h5>My thoughts on things</h5>
+      <section id="posts"></section>
+    </div>
+  </div>
+</section>

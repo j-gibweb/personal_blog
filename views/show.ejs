@@ -1,10 +1,13 @@
+
+<% include head.ejs %>
+
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                 <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand page-scroll tiny" href="#landing">
+            <a class="navbar-brand page-scroll tiny" href="javascript:history.back()">
                 <i class="fa fa-flash"></i>  <span class="light">GibWeb.io</span>
             </a>
         </div>
@@ -17,17 +20,32 @@
                 <li class="hidden">
                     <a href="#landing"></a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="#about">Hello</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#blog">
-                       <i class="fa fa-lemon-o"></i> Blog
-                    </a>
-                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container -->
 </nav>
+
+
+<script type="text/javascript">
+  $(function(){
+    var body = "<p class='tiny-text'>"+ <%- JSON.stringify(post.body) %> + "</p>";
+    $('#posts').html(body);
+  })
+</script>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+  <section id="blog" class="content-section text-center">
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-2">
+        <h1><%= post.title %></h1>
+        <section id="posts">
+        </section>
+      </div>
+    </div>
+  </section>
+
+
+</body>
