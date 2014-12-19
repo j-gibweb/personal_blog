@@ -23,7 +23,7 @@ require('./routes/posts')(app);
 
 // how to use this with multiple routes
 
-
-app.listen(3000, function() {
+var port = process.env.PORT || 3000;
+app.listen(port, function() {
   console.log('shh, im working over here...')
 });

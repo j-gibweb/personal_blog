@@ -46,15 +46,16 @@
 
 <script type="text/javascript">
 $(function(){
+
   var posts = $.ajax('/posts');
   posts.done(function(obj) {
     obj.forEach(function(o) {
       var html = (
-                  "<p class='title tiny-text'><em>"+ o.title +"</em></p>" 
-                  + "<a class='' href='/posts/"+ o._id +"'>"+ o._id +"</a>" 
-                  + "<p class='tiny-text'>"+ o.body +"</p>"
+                  "<p class='title tiny-text'>" + "<a class='title' href='/posts/"+ o._id +"'>" + o.title +"</a></p>" 
+                  // + "<p class='title tiny-text'><a class='title' href='/posts/"+ o._id +"'>"+ o._id +"</a></p>" 
+                  + "<p class='tiny-text'>"+ o.body.split(' ').slice(0,10).join(' ')+"...</p>"
+                  + "<hr>"
                   );
-      
       $('#posts').append(html)
     });
   });
@@ -65,7 +66,7 @@ $(function(){
   <div class="container">
     <div class="col-lg-8 col-lg-offset-2">
       <h1>Blog</h1>
-      <h5>My thoughts on things</h5>
+      <h5>My thoughts on things</h5> <hr>
       <section id="posts"></section>
     </div>
   </div>

@@ -54,7 +54,7 @@ module.exports = function(app) {
    * @param {Object} res HTTP response object.
    */
   newPost = function(req, res) {
-    res.render('newPost')
+    res.render('newPost', {post: {}})
   };
 
   addPost = function(req, res) {
@@ -163,14 +163,14 @@ module.exports = function(app) {
   //Link routes and actions
   // index
   app.get('/posts', findAllPosts);
-  // show
-  app.get('/posts/:id', findById);
-  // new template
-  app.get('/posts/new', newPost);
   // create
   app.post('/posts', addPost);
+  // new template
+  app.get('/posts/new', newPost);
   // update template
   app.get('/posts/edit/:id', editPost);
+  // show
+  app.get('/posts/:id', findById);
   // update
   app.put('/posts/:id', updatePost);
   // delete
