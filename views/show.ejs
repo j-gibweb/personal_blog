@@ -6,8 +6,22 @@
 
 <script type="text/javascript">
   $(function(){
-    var body = "<p class='tiny-text'>"+ <%- JSON.stringify(post.body) %> + "</p>";
-    $('#posts').html(body);
+    var post = <%- JSON.stringify(post) %>;
+    // console.log( post.title.toLowerCase().split(' ').join('_') )
+    console.log( post.pretty_url)
+
+    var body = "<p class='tiny-text'>"+ post.body.replace(/&lt;img/g, '<img').replace(/&gt;/g,'>') + "</p>";
+    // var imageRegex = /&lt;[^<>]*&gt;/g
+    // var images = body.match(imageRegex);    
+    // images.forEach(function(e) {
+    //   var img = e.replace(/&lt;/, '<').replace(/&gt;/,'>')
+    //   console.log(img)
+    //   body = body.replace(img, '')
+    //   $('#posts').append( $(img) );
+    // })
+    // body = body.replace(img, '')
+    // body = body
+    $('#posts').append(body);
   })
 </script>
 

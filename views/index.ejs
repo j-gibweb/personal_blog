@@ -52,9 +52,7 @@ $(function(){
     obj.forEach(function(o) {
       var html = (
                   "<h5 class='title tiny-text'>" + o.title + "</h5>" 
-                  + "<p class='title tiny-text'><a href='/posts/"+ o._id +"'>"+ o._id +"</a>" + " - "+ o.body.split(' ').length +" words</p>" 
-                  // + "<p class='tiny-text'>"+ o.body.split(' ').slice(0,10).join(' ')+"...</p>"
-                  + "<hr>"
+                  + "<p class='title tiny-text'><a href='/posts/"+ o.pretty_url +"'>"+ o._id +"</a>" + " - "+ o.body.split(' ').length +" words</p>" + o.created_at + "<hr> " 
                   );
       $('#posts').append(html)
     });
@@ -71,3 +69,19 @@ $(function(){
     </div>
   </div>
 </section>
+
+
+<!-- <form action="/login" method="post">
+    <div>
+        <label>Login:</label>
+        <input type="text" name="login"/>
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" name="password"/>
+    </div>
+    <div>
+        <input type="submit" value="Log In"/>
+    </div>
+</form>
+ -->

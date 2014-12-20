@@ -2,17 +2,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var Post = new Schema({
+var User = new Schema({
 
-  title:    {
+  login: {
     type    : String,
     require : true
   },
-  pretty_url:{
-    type    : String,
-    require : true
-  },
-  body:    {
+  password: {
     type    : String,
     require : true
   },
@@ -22,8 +18,7 @@ var Post = new Schema({
   },
   created_at: {
     type    : Date
-    // default : Date.now
   }
 });
 
-module.exports = mongoose.model('Post', Post);
+module.exports = mongoose.model('User', User);

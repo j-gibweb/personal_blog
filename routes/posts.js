@@ -25,8 +25,16 @@ module.exports = function(app) {
    * @param {Object} req HTTP request object.
    * @param {Object} res HTTP response object.
    */
-  findById = function(req, res) {
+  findByUrl = function(req, res) {
+    // console.log(req.params)
+    return Post.findOne(req.params, function(err, post) {
+      // console.log(post)
+      // return res.send(post)
+      return res.render('show', {post: post});
+    })
+  }
 
+  findById = function(req, res) {
     console.log("GET - /posts/:id");
     return Post.findById(req.params.id, function(err, post) {
 
@@ -37,6 +45,7 @@ module.exports = function(app) {
 
       if(!err) {
         // return res.send({ status: 'OK', post:post });
+        // console.log(post);
         return res.render('show', {post: post});
       } else {
 
@@ -62,11 +71,12 @@ module.exports = function(app) {
     console.log('POST - /posts');
 
     var post = new Post({
-      title:    req.body.title,
-      body:    req.body.body
+      title: req.body.title,
+      pretty_url: req.body.title.toLowerCase().split(' ').join('_'),
+      body: req.body.body,
+      created_at: Date.now()
     });
 
-    console.log(req.body)
     post.save(function(err) {
 
       if(err) {
@@ -167,16 +177,18 @@ module.exports = function(app) {
   // index
   app.get('/posts', findAllPosts);
   // create
-  app.post('/posts', addPost);
+  // app.post('/posts', addPost);
   // new template
   app.get('/posts/new', newPost);
   // update template
   app.get('/posts/edit/:id', editPost);
   // show
-  app.get('/posts/:id', findById);
+  // app.get('/posts/:id', findById);
+  // show by name
+  app.get('/posts/:pretty_url', findByUrl);
   // update
-  app.put('/posts/:id', updatePost);
+  // app.put('/posts/:id', updatePost);
   // delete
-  app.delete('/posts/:id', deletePost);
+  // app.delete('/posts/:id', deletePost);
 
 }

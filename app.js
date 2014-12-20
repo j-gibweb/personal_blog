@@ -1,10 +1,10 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var db = require('./db');
 var _ = require('underscore');
 
 var mongoose = require("mongoose");
+require('./db');
 
 // MongoDB config
 mongoose.connect(process.env.MONGO_CREDS, function(err, res) {
@@ -25,7 +25,14 @@ app.get('/', function(req, res) {
   res.render("layout");
 });
 
+var passport = require('passport');
+var expressSession = require('express-session');
+app.use(expressSession({secret: 'mySecretKey'}));
+app.use(passport.initialize());
+app.use(passport.session());
 
+
+require('./routes/users')(app);
 require('./routes/posts')(app);
 
 // var postRoutes = require('./routes/posts');
