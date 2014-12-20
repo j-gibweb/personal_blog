@@ -4,6 +4,17 @@ var bodyParser = require('body-parser');
 var db = require('./db');
 var _ = require('underscore');
 
+var mongoose = require("mongoose");
+
+// MongoDB config
+mongoose.connect(process.env.MONGO_CREDS, function(err, res) {
+  if(err) {
+    console.log('error connecting to MongoDB Database. ' + err);
+  } else {
+    console.log('Connected to Database');
+  }
+});
+
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public/'));
@@ -16,7 +27,6 @@ app.get('/', function(req, res) {
 
 
 require('./routes/posts')(app);
-// routes = require('./routes/posts')(app);
 
 // var postRoutes = require('./routes/posts');
 // app.use('/posts', postRoutes);

@@ -51,9 +51,9 @@ $(function(){
   posts.done(function(obj) {
     obj.forEach(function(o) {
       var html = (
-                  "<p class='title tiny-text'>" + "<a class='title' href='/posts/"+ o._id +"'>" + o.title +"</a></p>" 
-                  // + "<p class='title tiny-text'><a class='title' href='/posts/"+ o._id +"'>"+ o._id +"</a></p>" 
-                  + "<p class='tiny-text'>"+ o.body.split(' ').slice(0,10).join(' ')+"...</p>"
+                  "<h5 class='title tiny-text'>" + o.title + "</h5>" 
+                  + "<p class='title tiny-text'><a href='/posts/"+ o._id +"'>"+ o._id +"</a>" + " - "+ o.body.split(' ').length +" words</p>" 
+                  // + "<p class='tiny-text'>"+ o.body.split(' ').slice(0,10).join(' ')+"...</p>"
                   + "<hr>"
                   );
       $('#posts').append(html)

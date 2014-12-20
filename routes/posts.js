@@ -160,7 +160,10 @@ module.exports = function(app) {
     });
   }
 
-  //Link routes and actions
+  // these have to be in order of hard paths first
+  // then paths that take parameters -> /:id or /:name
+  // I don't know why.
+
   // index
   app.get('/posts', findAllPosts);
   // create
