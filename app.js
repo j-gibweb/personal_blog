@@ -38,11 +38,11 @@ app.use('/', routes);
 
 app.get('/', function(req, res) {
   if (req.isAuthenticated()) {
-    console.log(req.session)
+    console.log("logged in? " + req.isAuthenticated())
   } else {
-    console.log(req.isAuthenticated())
+    console.log("logged in? " + req.isAuthenticated())
   }
-  res.render("layout");
+  res.render("layout", {passport: req.session.passport});
 });
 
 // require('./routes/users')(app);

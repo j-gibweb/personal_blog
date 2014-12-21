@@ -46,14 +46,22 @@
 
 <script type="text/javascript">
 $(function(){
+  var passport = <%- JSON.stringify(passport)%>
+
+  if (passport.user) { 
+    var button = "<a href='/posts/new/' class='btn btn-default'>NEW POST</a>"
+    $('#posts').prepend(button);
+  }
 
   var posts = $.ajax('/posts');
   posts.done(function(obj) {
     obj.forEach(function(o) {
       var html = (
                   "<h5 class='title tiny-text'>" + o.title + "</h5>" 
-                  + "<p class='title tiny-text'><a href='/posts/"+ o.pretty_url +"'>"+ o._id +"</a>" + " - "+ o.body.split(' ').length +" words</p>" + o.created_at + "<hr> " 
+                  + "<p class='title tiny-text'><a href='/posts/"+ o.pretty_url +"'>"+ o._id +"</a>" + " - "+ o.body.split(' ').length +" words</p>" 
                   );
+      if (passport.user) { html += "<a href='/posts/edit/"+ o._id +"' class='btn btn-default'>EDIT</a>"}
+      html += " "+ o.created_at + "<hr>" 
       $('#posts').append(html)
     });
   });
@@ -64,8 +72,10 @@ $(function(){
   <div class="container">
     <div class="col-lg-8 col-lg-offset-2">
       <h1>Blog</h1>
-      <h5>My thoughts on things</h5> <hr>
-      <section id="posts"></section>
+      <h5>My thoughts on things</h5> 
+      <section id="posts">
+        <hr>
+      </section>
     </div>
   </div>
 </section>
