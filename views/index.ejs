@@ -57,14 +57,31 @@ $(function(){
   posts.done(function(obj) {
     obj.forEach(function(o) {
       var html = (
-                  "<h5 class='title tiny-text'>" + o.title + "</h5>" 
+                  "<div><h5 class='title tiny-text'>" + o.title + "</h5>" 
                   + "<p class='title tiny-text'><a href='/posts/"+ o.pretty_url +"'>"+ o._id +"</a>" + " - "+ o.body.split(' ').length +" words</p>" 
                   );
-      if (passport.user) { html += "<a href='/posts/edit/"+ o._id +"' class='btn btn-default'>EDIT</a>"}
-      html += " "+ o.created_at + "<hr>" 
+      if (passport.user) { 
+        html += "<a href='/posts/edit/"+ o._id +"' class='btn btn-default'>EDIT</a>"
+        html += "<a href='#' data-id='"+ o._id +"' class='deletePost btn btn-default'>DELETE</a>"
+      }
+      html += " "+ o.created_at + "<hr></div>" 
       $('#posts').append(html)
     });
+
+    $('.deletePost').on('click', function(event) {
+      event.preventDefault();
+      var id = $(this).data('id');
+      var button = $(this);
+    
+      $.ajax({
+        type: 'DELETE',
+        url: 'posts/'+id,
+      }).done(function() {
+        button.closest('div').fadeOut();
+      });
+    })
   });
+
 })
 </script>
 
