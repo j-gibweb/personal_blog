@@ -1,5 +1,11 @@
 var Post = require('../models/post.js');
 
+var isAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated())
+    return next();
+  res.redirect('/');
+}
+
 module.exports = function(app) {
 
   /**
@@ -63,7 +69,7 @@ module.exports = function(app) {
    * @param {Object} res HTTP response object.
    */
   newPost = function(req, res) {
-    res.render('newPost', {post: {}})
+    res.render('postForm', {post: {}})
   };
 
   addPost = function(req, res) {
@@ -99,7 +105,7 @@ module.exports = function(app) {
 
   editPost = function(req, res) {
     return Post.findById(req.params.id, function(err, post) {
-      return res.render('newPost', {post: post})
+      return res.render('postForm', {post: post})
     });
   }
   /**
@@ -177,18 +183,18 @@ module.exports = function(app) {
   // index
   app.get('/posts', findAllPosts);
   // create
-  // app.post('/posts', addPost);
+  app.post('/posts', isAuthenticated, addPost);
   // new template
-  app.get('/posts/new', newPost);
+  app.get('/posts/new', isAuthenticated, newPost);
   // update template
-  app.get('/posts/edit/:id', editPost);
+  app.get('/posts/edit/:id', isAuthenticated, editPost);
   // show
   // app.get('/posts/:id', findById);
   // show by name
   app.get('/posts/:pretty_url', findByUrl);
   // update
-  // app.put('/posts/:id', updatePost);
+  app.put('/posts/:id', isAuthenticated, updatePost);
   // delete
-  // app.delete('/posts/:id', deletePost);
+  app.delete('/posts/:id', isAuthenticated, deletePost);
 
 }
