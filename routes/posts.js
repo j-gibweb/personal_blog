@@ -105,7 +105,7 @@ module.exports = function(app) {
 
   editPost = function(req, res) {
     return Post.findById(req.params.id, function(err, post) {
-      return res.render('postForm', {post: post})
+      return res.render('postForm', { status: 'OK', post:post })
     });
   }
   /**

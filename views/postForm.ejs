@@ -72,10 +72,10 @@ input#postTitle::selection{
     $.ajax({
       type: type,
       url: url,
-      data: postData 
-    }).done(function(value) {
-      alert("sent");
-      form.trigger('reset');
+      data: postData,
+      success: function(data) {
+        window.location.href = "/posts/" + data.post.pretty_url
+      }
     });
 
   });
