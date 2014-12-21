@@ -73,9 +73,7 @@ module.exports = function(app) {
   };
 
   addPost = function(req, res) {
-
     console.log('POST - /posts');
-
     var post = new Post({
       title: req.body.title,
       pretty_url: req.body.title.toLowerCase().split(' ').join('_'),
@@ -92,10 +90,8 @@ module.exports = function(app) {
         return;
 
       } else {
-
         console.log("Post created");
         return res.send({ status: 'OK', post:post });
-
       }
 
     });
@@ -125,6 +121,7 @@ module.exports = function(app) {
 
       if (req.body.title != null) post.title = req.body.title;
       if (req.body.body != null) post.body = req.body.body;
+      if (req.body.created_at != null) post.created_at = req.body.created_at;
 
       return post.save(function(err) {
         if(!err) {
@@ -193,7 +190,7 @@ module.exports = function(app) {
   // show by name
   app.get('/posts/:pretty_url', findByUrl);
   // update
-  app.put('/posts/:id', isAuthenticated, updatePost);
+  app.put('/posts/:id', updatePost);
   // delete
   app.delete('/posts/:id', isAuthenticated, deletePost);
 

@@ -62,9 +62,10 @@ $(function(){
                   );
       if (passport.user) { 
         html += "<a href='/posts/edit/"+ o._id +"' class='btn btn-default'>EDIT</a>"
+        html += "&nbsp;"
         html += "<a href='#' data-id='"+ o._id +"' class='deletePost btn btn-default'>DELETE</a>"
       }
-      html += " "+ o.created_at + "<hr></div>" 
+      html += " <span class='post-date'> published "+ prettyDate(o.created_at) + "</span><hr></div>" 
       $('#posts').append(html)
     });
 
