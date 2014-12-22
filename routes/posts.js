@@ -17,6 +17,7 @@ module.exports = function(app) {
     console.log("GET - /posts");
     return Post.find(function(err, posts) {
       if(!err) {
+        posts = posts.filter(function(p) { return p.visible === true})
         return res.send(posts);
       } else {
         res.statusCode = 500;
@@ -78,6 +79,7 @@ module.exports = function(app) {
       title: req.body.title,
       pretty_url: req.body.title.toLowerCase().split(' ').join('_'),
       body: req.body.body,
+      visible: req.body.visible,
       created_at: Date.now()
     });
 
@@ -122,6 +124,7 @@ module.exports = function(app) {
       if (req.body.title != null) post.title = req.body.title;
       if (req.body.body != null) post.body = req.body.body;
       if (req.body.created_at != null) post.created_at = req.body.created_at;
+      if (req.body.visible != null) post.visible = req.body.visible;
 
       return post.save(function(err) {
         if(!err) {
@@ -190,7 +193,7 @@ module.exports = function(app) {
   // show by name
   app.get('/posts/:pretty_url', findByUrl);
   // update
-  app.put('/posts/:id', updatePost);
+  app.put('/posts/:id', isAuthenticated, updatePost);
   // delete
   app.delete('/posts/:id', isAuthenticated, deletePost);
 

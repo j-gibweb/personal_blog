@@ -16,6 +16,11 @@ var Post = new Schema({
     type    : String,
     require : true
   },
+  visible:    {
+    type    : Boolean,
+    default : true,
+    require : false
+  },
   modified: {
     type    : Date,
     default : Date.now
