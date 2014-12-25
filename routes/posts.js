@@ -1,3 +1,4 @@
+
 var Post = require('../models/post.js');
 
 var isAuthenticated = function (req, res, next) {
@@ -70,40 +71,37 @@ module.exports = function(app) {
    * @param {Object} res HTTP response object.
    */
   newPost = function(req, res) {
-    res.render('postForm', {post: {}})
+    // res.render('newPost', {post: {}})
+    res.render('editPost', {post: {}})
   };
 
   addPost = function(req, res) {
     console.log('POST - /posts');
+
     var post = new Post({
       title: req.body.title,
       pretty_url: req.body.title.toLowerCase().split(' ').join('_'),
       body: req.body.body,
-      visible: req.body.visible,
+      visible: true,
       created_at: Date.now()
     });
 
     post.save(function(err) {
-
       if(err) {
-
         console.log('Error while saving post: ' + err);
         res.send({ error:err });
         return;
-
       } else {
         console.log("Post created");
         return res.send({ status: 'OK', post:post });
       }
-
     });
-
   };
 
 
   editPost = function(req, res) {
     return Post.findById(req.params.id, function(err, post) {
-      return res.render('postForm', { status: 'OK', post:post })
+      return res.render('editPost', { status: 'OK', post:post })
     });
   }
   /**
@@ -182,14 +180,19 @@ module.exports = function(app) {
 
   // index
   app.get('/posts', findAllPosts);
+  
   // create
   app.post('/posts', isAuthenticated, addPost);
+
   // new template
   app.get('/posts/new', isAuthenticated, newPost);
+
+
   // update template
   app.get('/posts/edit/:id', isAuthenticated, editPost);
   // show
   // app.get('/posts/:id', findById);
+
   // show by name
   app.get('/posts/:pretty_url', findByUrl);
   // update

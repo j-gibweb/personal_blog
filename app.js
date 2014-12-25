@@ -4,6 +4,13 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var path = require('path');
 
+// CRITICAL for file uploads
+// gives request a 'files' property {}
+var multer  = require('multer');
+app.use(multer({ dest: './uploads/'}))
+
+
+
 var mongoose = require("mongoose");
 require('./db');
 // MongoDB config
@@ -14,11 +21,18 @@ mongoose.connect(process.env.MONGO_CREDS, function(err, res) {
     console.log('Connected to Database');
   }
 });
+
+
+
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components',  express.static(path.join(__dirname, 'bower_components')));
-
 app.use(bodyParser.urlencoded({extended:false}));
+
+
+
+var flash = require('connect-flash');
+app.use(flash());
 
 // Configuring Passport
 var passport = require('passport');
@@ -27,31 +41,23 @@ app.use(expressSession({secret: 'mySecretKey', cookie: { maxAge : 3600000 }}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-var flash = require('connect-flash');
-app.use(flash());
-
 var initPassport = require('./passport/init');
 initPassport(passport);
-
 var routes = require('./routes/users')(passport);
 app.use('/', routes);
 
 app.get('/', function(req, res) {
-  if (req.isAuthenticated()) {
-    console.log("logged in? " + req.isAuthenticated())
-  } else {
-    console.log("logged in? " + req.isAuthenticated())
-  }
   res.render("layout", {passport: req.session.passport});
 });
 
-// require('./routes/users')(app);
 require('./routes/posts')(app);
-
 // var postRoutes = require('./routes/posts');
 // app.use('/posts', postRoutes);
+require('./routes/uploads')(app);
 
-// how to use this with multiple routes
+
+
+
 
 var favicon = require('serve-favicon');
 app.use(favicon(__dirname + '/public/images/favicon.ico'));

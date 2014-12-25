@@ -24,7 +24,7 @@ $('.navbar-collapse ul li a').click(function() {
     $('.navbar-toggle:visible').click();
 });
 
-
+// stolen from John Resig lolz
 function prettyDate(time){
   var date = new Date((time || "").replace(/-/g,"/").replace(/[TZ]/g," ")),
     diff = (((new Date()).getTime() - date.getTime()) / 1000),

@@ -1,3 +1,4 @@
+
 <!-- wysihtml core javascript with default toolbar functions --> 
 <script src="/bower_components/wysihtml/dist/wysihtml5x-toolbar.min.js"></script>
 <!-- rules defining tags, attributes and classes that are allowed -->
@@ -16,10 +17,10 @@ input#postTitle::selection{
   <div class="row">
     <div class="col-md-10 col-md-offset-2">
 
-      <form role="form" style="margin-top:100px;">
+      <form role="form" style="margin-top:100px;" action='/posts' method='post' enctype="multipart/form-data">
         <div class="form-group">
           <label for="title">Title</label>
-          <input name="title" type="text" class="form-control" id="postTitle" value="" style="width:500px; height:50px;">
+          <input name="title" type="text" class="form-control" id="postTitle" style="width:500px; height:50px;">
         </div>
         <div class="form-group">
           <label for="body">Body</label>
@@ -34,50 +35,26 @@ input#postTitle::selection{
           <!-- element to edit -->
           <textarea name="body" type="text" class="form-control" id="editor" rows="30" style="width:800px"></textarea>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <div class="form-group">
+          <label for="title">Files</label>
+          <input type="file" id="files" name='photo' multiple/>
+        </div>
+        <input type="submit" class="btn btn-default" value="Submit">
       </form>
 
     </div>
   </div>
 </div>
 
-<script>
-  var post = <%- JSON.stringify(post) %>;
-  $(function(){
-    $('#postTitle').val(post.title);
-    $('#editor').val(post.body);
-  })
 
+
+
+
+<script>
   // instantiate wysihtml iframe
   var editor = new wysihtml5.Editor('editor', {
     toolbar: 'toolbar',
     parserRules:  wysihtml5ParserRules
-  });
-
-  // form submission, detect either new or edit action
-  $('form').on('submit', function(event) {
-    event.preventDefault();
-    var form = $(this);
-    var postData = form.serialize();
-    var path = $(location).attr('pathname');
-    
-    if (path.split('/')[2] === 'new') {
-      var type = 'POST';
-      var url = '/posts';
-    } else if (path.split('/')[2] === 'edit') {
-      var type = 'PUT';
-      var url = '/posts/'+ path.split('/')[3];
-    }
-    
-    $.ajax({
-      type: type,
-      url: url,
-      data: postData,
-      success: function(data) {
-        window.location.href = "/posts/" + data.post.pretty_url
-      }
-    });
-
   });
 
 </script>

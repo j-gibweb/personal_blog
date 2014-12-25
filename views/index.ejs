@@ -67,6 +67,7 @@ $(function(){
       }
       html += " <span class='post-date'> published "+ prettyDate(o.created_at) + "</span><hr></div>" 
       $('#posts').append(html)
+      console.log(o.created_at)
     });
 
     $('.deletePost').on('click', function(event) {
