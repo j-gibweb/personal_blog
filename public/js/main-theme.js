@@ -25,8 +25,8 @@ $('.navbar-collapse ul li a').click(function() {
 });
 
 // stolen from John Resig lolz
-function prettyDate(time){
-  var date = new Date((time || "").replace(/-/g,"/").replace(/[TZ]/g," ")),
+String.prototype.prettyDate = function(){
+  var date = new Date((this || "").replace(/-/g,"/").replace(/[TZ]/g," ")),
     diff = (((new Date()).getTime() - date.getTime()) / 1000),
     day_diff = Math.floor(diff / 86400);
       

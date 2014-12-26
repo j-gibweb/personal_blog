@@ -6,13 +6,12 @@
 <!-- rules defining tags, attributes and classes that are allowed -->
 <script src="/bower_components/wysihtml/parser_rules/advanced_and_extended.js"></script>
 
-
-
-
 <style type="text/css">
 input#postTitle::selection{
   background: #66D9D3;
 }
+
+#editor{overflow: scroll; height: 450px; width: 800px;}
 </style>
 
 <div class="container">
@@ -32,9 +31,7 @@ input#postTitle::selection{
             <a class="btn btn-default" data-wysihtml5-command="italic">italic</a>
             <a class="btn btn-default" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
             <a class="btn btn-default" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">P</a>
-
             <!-- <a class="btn btn-default" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="pre" href="javascript:;" unselectable="on" class="wysihtml5-command-active" >pre</a> -->
-            
             <a class="btn btn-default" data-wysihtml5-command="formatCode" data-wysihtml5-command-value="language-html" href="javascript:;" unselectable="on" >Code</a>
            </div>
            <br />
@@ -42,7 +39,7 @@ input#postTitle::selection{
           <textarea name='body' type="text" id="post-body" hidden></textarea>
           
           <!-- wisiwyg area -->
-          <div name="body" type="text" class="form-control" id="editor" contentEditable="true" style="overflow:scroll; height:450px; width:800px;"></div>
+          <div name="body" type="text" class="form-control" id="editor" contentEditable="true"></div>
 
         </div>
         <div class="form-group">

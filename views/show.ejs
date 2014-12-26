@@ -4,6 +4,10 @@
 <% include simple_nav.ejs %>
 
 
+<link rel="stylesheet" href="/bower_components/highlight/lib/vendor/highlight.js/styles/zenburn.css">
+<script src="/bower_components/highlight/lib/vendor/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
 <script type="text/javascript">
   $(function(){
     var post = <%- JSON.stringify(post) %>;
@@ -16,6 +20,11 @@
     
     $('#posts').append(body);
 
+  
+    $('pre code').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+    
 
     // bunch of regex crap
     // var imageRegex = /&lt;[^<>]*&gt;/g

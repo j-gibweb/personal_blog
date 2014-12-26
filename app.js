@@ -9,10 +9,13 @@ var path = require('path');
 var multer  = require('multer');
 app.use(multer({ dest: './uploads/'}))
 
+var env = process.env.NODE_ENV || 'dev';
 
 
 var mongoose = require("mongoose");
-require('./db');
+if (env !== 'dev') {
+  require('./db');
+}
 // MongoDB config
 mongoose.connect(process.env.MONGO_CREDS, function(err, res) {
   if(err) {
