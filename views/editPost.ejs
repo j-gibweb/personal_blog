@@ -27,23 +27,21 @@ input#postTitle::selection{
         <div class="form-group">
           <label for="body">Body</label>
           <!-- toolbar with suitable buttons and dialogues -->
-          <!-- <div id="toolbar">
+          <div id="toolbar">
             <a class="btn btn-default" data-wysihtml5-command="bold">bold</a>
             <a class="btn btn-default" data-wysihtml5-command="italic">italic</a>
             <a class="btn btn-default" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
             <a class="btn btn-default" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">P</a>
-           </div> -->
+           </div>
            <br />
-          <!-- element to edit -->
-          <textarea name="body" type="text" class="form-control" id="editor" rows="20" style="width:800px; display:inline-block;"></textarea>
-
-          <!-- <textarea class="form-control" id="dropZone" style="height:415px; width:400px; display:inline-block;">Drag and drop photos here to upload</textarea> -->
+          <!-- hidden text area for async form functionality -->
+          <textarea name='body' type="text" id="post-body" hidden></textarea>
+          
+          <!-- wisiwyg area -->
+          <div name="body" type="text" class="form-control" id="editor" contentEditable="true" style="overflow:scroll; height:450px; width:800px;"></div>
 
         </div>
         <div class="form-group">
-          <!-- <label for="title">Files</label>
-          <input type="file" id="files" multiple /> -->
-          <br />
           <button type="submit" class="btn btn-default">Submit</button>
         </div>
         
@@ -62,27 +60,27 @@ $(function(){
     $('#postTitle').val(post.title);
   }
   if (post.body) {
-    var bod = post.body.replace(/&lt;img/g, '<img').replace(/&gt;/g,'>').replace(/<br>/g, '\n')
-    $('#editor').val(bod);
+    var bod = post.body.replace(/&lt;img/g, '<img').replace(/&gt;/g,'>');
+    $('#editor').append(bod);
   }
 
   // instantiate wysihtml iframe
-  // var editor = new wysihtml5.Editor('editor', {
-  //   toolbar: 'toolbar',
-  //   parserRules:  wysihtml5ParserRules
-  // });
+  var editor = new wysihtml5.Editor('editor', {
+    toolbar: 'toolbar',
+    parserRules:  wysihtml5ParserRules
+  });
 
   $('#editor').on('dragover', function(event) {
     event.preventDefault();
     event.stopPropagation();
     }
-  )
+  );
+
   $('#editor').on('dragenter', function(event) {
     event.preventDefault();
     event.stopPropagation();
     }
-  )
-
+  );
 
   $('#editor').on('drop', function(event){
     if(event.originalEvent.dataTransfer){
@@ -102,9 +100,12 @@ $(function(){
           processData: false,
           contentType: false,
           success: function(data) {
-            // console.log(data);
-            var oldVal = $('#editor').val();
-            $('#editor').val(oldVal + '\n' + data);
+            console.log(data);
+
+            // var oldVal = $('#editor').val();
+            // $('#editor').val(oldVal + '\n' + data);
+
+            $('#editor').append(data);
           }
         });
       }   
@@ -116,6 +117,9 @@ $(function(){
 
   $('form').on('submit', function(event) {
     event.preventDefault();
+
+    // populate hidden text field with contents of editor div thing.
+    $('#post-body').html($('#editor').html());
     
     var form = $(this);    
     var postData = form.serialize();
@@ -128,7 +132,6 @@ $(function(){
       var type = 'PUT';
       var url = '/posts/'+ path.split('/')[3];
     }
-    
 
     $.ajax({
       type: type,
@@ -138,10 +141,9 @@ $(function(){
         window.location.href = "/posts/" + data.post.pretty_url
       }
     }).done(function(data) {
-      console.log(data);
+      // console.log(data);
     });
 
   });
-
-})
+});
 </script>

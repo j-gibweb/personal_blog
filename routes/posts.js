@@ -34,9 +34,7 @@ module.exports = function(app) {
    * @param {Object} res HTTP response object.
    */
   findByUrl = function(req, res) {
-    // console.log(req.params)
     return Post.findOne(req.params, function(err, post) {
-      // console.log(post)
       // return res.send(post)
       return res.render('show', {post: post});
     })
@@ -64,12 +62,6 @@ module.exports = function(app) {
     });
   };
 
-
-  /**
-   * Creates a new post from the data request
-   * @param {Object} req HTTP request object.
-   * @param {Object} res HTTP response object.
-   */
   newPost = function(req, res) {
     // res.render('newPost', {post: {}})
     res.render('editPost', {post: {}})
@@ -104,11 +96,8 @@ module.exports = function(app) {
       return res.render('editPost', { status: 'OK', post:post })
     });
   }
-  /**
-   * Update a post by its ID
-   * @param {Object} req HTTP request object.
-   * @param {Object} res HTTP response object.
-   */
+  
+
   updatePost = function(req, res) {
 
     console.log("PUT - /posts/:id");
@@ -146,12 +135,6 @@ module.exports = function(app) {
   };
 
 
-
-  /**
-   * Delete a post by its ID
-   * @param {Object} req HTTP request object.
-   * @param {Object} res HTTP response object.
-   */
   deletePost = function(req, res) {
 
     console.log("DELETE - /posts/:id");
@@ -174,10 +157,6 @@ module.exports = function(app) {
     });
   }
 
-  // these have to be in order of hard paths first
-  // then paths that take parameters -> /:id or /:name
-  // I don't know why.
-
   // index
   app.get('/posts', findAllPosts);
   
@@ -187,9 +166,9 @@ module.exports = function(app) {
   // new template
   app.get('/posts/new', isAuthenticated, newPost);
 
-
   // update template
   app.get('/posts/edit/:id', isAuthenticated, editPost);
+  
   // show
   // app.get('/posts/:id', findById);
 

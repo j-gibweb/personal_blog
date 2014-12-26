@@ -8,7 +8,16 @@
   $(function(){
     var post = <%- JSON.stringify(post) %>;
 
-    var body = "<p class='tiny-text'>"+ post.body.replace(/&lt;img/g, '<img').replace(/&gt;/g,'>').replace(/\n/g, '<br>') + "</p>";
+    var temp = post.body
+                   .replace(/&lt;img/g, '<img')
+                   .replace(/&gt;/g,'>');
+
+    var body = "<p class='tiny-text'>" + temp + "</p>";
+    
+    $('#posts').append(body);
+
+
+    // bunch of regex crap
     // var imageRegex = /&lt;[^<>]*&gt;/g
     // var images = body.match(imageRegex);    
     // images.forEach(function(e) {
@@ -19,7 +28,6 @@
     // })
     // body = body.replace(img, '')
     // body = body
-    $('#posts').append(body);
   })
 </script>
 

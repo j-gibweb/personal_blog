@@ -61,13 +61,12 @@ $(function(){
                   + "<p class='title tiny-text'><a href='/posts/"+ o.pretty_url +"'>"+ o._id +"</a>" + " - "+ o.body.split(' ').length +" words</p>" 
                   );
       if (passport.user) { 
-        html += "<a href='/posts/edit/"+ o._id +"' class='btn btn-default'>EDIT</a>"
-        html += "&nbsp;"
-        html += "<a href='#' data-id='"+ o._id +"' class='deletePost btn btn-default'>DELETE</a>"
+        html += "<a href='/posts/edit/"+ o._id +"' class='btn btn-default'>EDIT</a>";
+        html += "&nbsp;";
+        html += "<a href='#' data-id='"+ o._id +"' class='deletePost btn btn-default'>DELETE</a>";
       }
-      html += " <span class='post-date'> published "+ prettyDate(o.created_at) + "</span><hr></div>" 
-      $('#posts').append(html)
-      console.log(o.created_at)
+      html += " <span class='post-date'> published "+ prettyDate(o.created_at) + "</span><hr></div>" ;
+      $('#posts').append(html);
     });
 
     $('.deletePost').on('click', function(event) {
