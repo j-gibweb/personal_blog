@@ -32,6 +32,10 @@ input#postTitle::selection{
             <a class="btn btn-default" data-wysihtml5-command="italic">italic</a>
             <a class="btn btn-default" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
             <a class="btn btn-default" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">P</a>
+
+            <!-- <a class="btn btn-default" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="pre" href="javascript:;" unselectable="on" class="wysihtml5-command-active" >pre</a> -->
+            
+            <a class="btn btn-default" data-wysihtml5-command="formatCode" data-wysihtml5-command-value="language-html" href="javascript:;" unselectable="on" >Code</a>
            </div>
            <br />
           <!-- hidden text area for async form functionality -->
@@ -100,19 +104,13 @@ $(function(){
           processData: false,
           contentType: false,
           success: function(data) {
-            console.log(data);
-
-            // var oldVal = $('#editor').val();
-            // $('#editor').val(oldVal + '\n' + data);
-
+            // console.log(data);
             $('#editor').append(data);
           }
         });
       }   
     }
   });
-
-
 
 
   $('form').on('submit', function(event) {

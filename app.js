@@ -57,8 +57,6 @@ require('./routes/uploads')(app);
 
 
 
-
-
 var favicon = require('serve-favicon');
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 

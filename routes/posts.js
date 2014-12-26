@@ -9,11 +9,6 @@ var isAuthenticated = function (req, res, next) {
 
 module.exports = function(app) {
 
-  /**
-   * Find and retrieves all posts
-   * @param {Object} req HTTP request object.
-   * @param {Object} res HTTP response object.
-   */
   findAllPosts = function(req, res) {
     console.log("GET - /posts");
     return Post.find(function(err, posts) {
@@ -28,11 +23,6 @@ module.exports = function(app) {
     });
   };
 
-  /**
-   * Find and retrieves a single post by its ID
-   * @param {Object} req HTTP request object.
-   * @param {Object} res HTTP response object.
-   */
   findByUrl = function(req, res) {
     return Post.findOne(req.params, function(err, post) {
       // return res.send(post)
