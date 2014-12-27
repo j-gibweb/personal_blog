@@ -13,7 +13,9 @@ var env = process.env.NODE_ENV || 'dev';
 
 
 var mongoose = require("mongoose");
-if (env !== 'dev') {
+
+// what the hell is going on here on the heroku server
+if (env === 'dev') {
   require('./db');
 }
 // MongoDB config
