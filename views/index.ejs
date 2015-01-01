@@ -57,17 +57,22 @@ $(function(){
   posts.done(function(obj) {
     obj.forEach(function(o) {
       var html = (
-                  "<div><h5 class='title tiny-text'>" + o.title + "</h5>" 
+                  "<section><h5 class='title tiny-text'>" + o.title + "</h5>" 
                   + "<p class='title tiny-text'><a href='/posts/"+ o.pretty_url +"'>"+ o._id +"</a>" + " - "+ o.body.split(' ').length +" words</p>" 
                   );
       if (passport.user) { 
-        html += "<a href='/posts/edit/"+ o._id +"' class='btn btn-default'>EDIT</a>";
-        html += "&nbsp;";
+        html += "<a href='/posts/edit/"+ o._id +"' class='btn btn-default'>EDIT</a>&nbsp;";
         html += "<a href='#' data-id='"+ o._id +"' class='deletePost btn btn-default'>DELETE</a>";
       }
-      // make created_at dates pretty
-      html += " <span class='post-date'> published "+ o.created_at + "</span><hr></div>" ;
+      
+      // make date time logic, not be in the view.
+      var dateObj = new Date(o.created_at);
+      var formattedDate = dateObj.getMonth() +'/'+ dateObj.getDate() +'/'+ dateObj.getFullYear();
+      var semanticDate = dateObj.getFullYear() +'-'+ dateObj.getMonth() +'-'+ dateObj.getDate();
+
+      html += " <span class='post-date'> published:  <time datetime="+ semanticDate +">"+ formattedDate + "</time></span><hr></section>" ;
       $('#posts').append(html);
+      
     });
 
     $('.deletePost').on('click', function(event) {
@@ -81,10 +86,9 @@ $(function(){
       }).done(function() {
         button.closest('div').fadeOut();
       });
-    })
+    });
   });
-
-})
+});
 </script>
 
 <section id="blog" class="content-section text-center">
@@ -98,3 +102,11 @@ $(function(){
     </div>
   </div>
 </section>
+
+
+<!-- footer -->
+<footer>
+    <div class="container text-center">
+        <p class="tiny-text">gibweb.io</p>
+    </div>
+</footer>
