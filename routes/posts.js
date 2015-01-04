@@ -53,7 +53,6 @@ module.exports = function(app) {
   };
 
   newPost = function(req, res) {
-    // res.render('newPost', {post: {}})
     res.render('editPost', {post: {}})
   };
 
