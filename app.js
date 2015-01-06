@@ -9,15 +9,10 @@ var path = require('path');
 var multer  = require('multer');
 app.use(multer({ dest: './uploads/'}))
 
-var env = process.env.NODE_ENV || 'dev';
-
-
 var mongoose = require("mongoose");
 
-// what the hell is going on here on the heroku server
-if (env === 'dev') {
-  require('./db');
-}
+var env = process.env.NODE_ENV || 'dev';
+if (env === 'dev') {require('./db');}
 // MongoDB config
 mongoose.connect(process.env.MONGO_CREDS, function(err, res) {
   if(err) {
@@ -51,13 +46,16 @@ initPassport(passport);
 var routes = require('./routes/users')(passport);
 app.use('/', routes);
 
+
 app.get('/', function(req, res) {
   res.render("layout", {passport: req.session.passport});
 });
 
+app.get('/slideshow', function(req, res) {
+  res.render("examples/slideshow");
+});
+
 require('./routes/posts')(app);
-// var postRoutes = require('./routes/posts');
-// app.use('/posts', postRoutes);
 require('./routes/uploads')(app);
 
 
