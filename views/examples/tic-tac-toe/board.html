@@ -1,0 +1,22 @@
+
+<div id="game-container" ng-hide="game.winner">
+  <div class="cell" ng-repeat="piece in game.pieces"  ng-click="piece.click($event, game)" ng-class="piece.player"></div>
+  <h1>turn: {{game.turn}}</h1>
+</div>
+
+<div ng-show="game.winner">
+  <img src="http://allthingsd.com/files/2012/10/Winner_is_you.jpg">
+  <h1>PLAYER {{game.winner | uppercase}}</h1>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

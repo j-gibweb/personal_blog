@@ -1,0 +1,43 @@
+body {
+  text-align: center;
+  color: #545454;
+  font-family: monospace, sans-serif;
+}
+
+#game-container {
+  background:#F2F2F2;
+  width:500px;
+  height:500px;
+  padding: 20px 0px 0px 0px;
+  margin:0px auto;
+}
+
+.cell {
+  position: relative;
+  display:inline-block;
+  background:#B1E1EB;
+  height:150px;
+  width:150px;
+  text-align: center;
+  margin: 5px 5px 5px 5px;
+}
+
+.x:before, .o:after {
+  position: absolute;
+  top: 0;
+  left: 23;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 140px;
+  font-weight: bold;
+}
+
+.x:before {
+  content: "X";
+  color: #EDB500;
+}
+
+.o:after {
+  content: "O";
+  color: #0184BC;
+}

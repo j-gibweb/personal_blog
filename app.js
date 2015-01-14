@@ -27,6 +27,7 @@ mongoose.connect(process.env.MONGO_CREDS, function(err, res) {
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components',  express.static(path.join(__dirname, 'bower_components')));
+app.use('/views',  express.static(path.join(__dirname, 'views')));
 app.use(bodyParser.urlencoded({extended:false}));
 
 
@@ -53,6 +54,10 @@ app.get('/', function(req, res) {
 
 app.get('/slideshow', function(req, res) {
   res.render("examples/slideshow");
+});
+
+app.get('/tic-tac-toe', function(req, res) {
+  res.sendFile(__dirname + "/views/examples/tic-tac-toe/tic-tac-toe.html");
 });
 
 require('./routes/posts')(app);
