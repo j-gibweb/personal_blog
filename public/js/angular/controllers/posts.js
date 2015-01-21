@@ -7,11 +7,11 @@ app.controller('PostsController', function($scope, $http, $location) {
       url: 'posts',
     }).success(function(data) {
       data.forEach(function(item) {
+        // console.log(item)
         $scope.posts.push(item);
       });
     });
   }; 
-
 
 
   if ($location.path() === '/') {$scope.index();}

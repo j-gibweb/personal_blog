@@ -66,6 +66,7 @@ $(function(){
     $('#posts').prepend(button);
   }
 
+  
   var posts = $.ajax('/posts');
   posts.done(function(obj) {
     obj.forEach(function(o) {
@@ -109,36 +110,14 @@ $(function(){
     <div class="col-lg-8 col-lg-offset-2">
       <h1>Blog</h1>
       <h5>My thoughts on things</h5> 
-      
-      <!-- <section id="posts">
-        <hr>
-      </section> -->
-
       <section ng-view></section>
-
     </div>
   </div>
 </section>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<hr>
 <!-- footer -->
 <footer>
   <div class="container text-center">
