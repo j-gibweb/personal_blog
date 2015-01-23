@@ -1,5 +1,5 @@
 var app = angular.module('portfolio', 
-  ['ngRoute', 'appControllers']);
+  ['ngRoute', 'appControllers', 'postFilters']);
 
 var appControllers = angular.module("appControllers", []);
 

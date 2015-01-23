@@ -53,6 +53,19 @@ a:focus {
   color: #000;
 }
 
+.tiny-text {
+  font-size: 20px;
+  font-family: Andale Mono, monospace;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.hidden{
+  display: none;
+}
+
 .magnify:hover{
   font-size: 24px;
 }
@@ -93,7 +106,7 @@ a:focus {
 }
 
 .navbar-custom .nav li.active {
-  outline: nonte;
+  outline: none;
   background-color: rgba(52,211,163,.6);
 }
 

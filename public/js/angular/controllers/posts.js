@@ -11,14 +11,13 @@ app.controller('PostsIndexController',
   });
 }]);
 
-
 app.controller('PostsShowController', 
-  ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+  ['$scope', '$http', '$routeParams', '$sce', function($scope, $http, $routeParams, $sce) {
   $http({
     method: "GET", 
     url: 'posts/' + $routeParams.pretty_url,
   }).success(function(data) {
     $scope.post = data;
+    $scope.body = $sce.trustAsHtml(data.body);
   });
-
 }]);

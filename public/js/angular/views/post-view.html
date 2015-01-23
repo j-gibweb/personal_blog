@@ -4,21 +4,20 @@
 
 <script type="text/javascript">
   $(function(){
-    // var temp = post.body.replace(/&lt;img/g, '<img').replace(/&gt;/g,'>');
-
     $('pre code').each(function(i, block) {
       hljs.highlightBlock(block);
     });
   });
+
 </script>
-
-
 
 <div class="container">
   <div class="col-lg-8 ">
     <h1>{{ post.title }}</h1>
     <section>
-      <article><p class='tiny-text'> {{ post.body }} </p></article>
+      <article>
+        <p class='tiny-text text-left' id="post" ng-bind-html="body"></p>
+      </article>
     </section>
   </div>
 </div>
