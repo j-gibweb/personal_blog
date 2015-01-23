@@ -4,8 +4,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var path = require('path');
 
-// CRITICAL for file uploads
-// gives request a 'files' property {}
+// multer gives request a 'files' property {}
 var multer  = require('multer');
 app.use(multer({ dest: './uploads/'}))
 

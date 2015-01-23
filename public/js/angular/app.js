@@ -7,7 +7,11 @@ app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'js/angular/views/post-list.html',
-      controller: 'PostsController'
+      controller: 'PostsIndexController'
+    })
+    .when('/posts/:pretty_url', {
+      templateUrl: 'js/angular/views/post-view.html',
+      controller: 'PostsShowController'
     })
     .otherwise({
       redirectTo: '/'
