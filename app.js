@@ -22,8 +22,7 @@ mongoose.connect(process.env.MONGO_CREDS, function(err, res) {
 });
 
 
-
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components',  express.static(path.join(__dirname, 'bower_components')));
 app.use('/views',  express.static(path.join(__dirname, 'views')));
@@ -48,11 +47,12 @@ app.use('/', routes);
 
 
 app.get('/', function(req, res) {
-  res.render("layout", {passport: req.session.passport});
+  // res.render("layout", {passport: req.session.passport});
+  res.sendFile(__dirname + "/views/index.html");
 });
 
 app.get('/slideshow', function(req, res) {
-  res.render("examples/slideshow");
+  res.sendFile(__dirname + "/views/examples/slideshow.html");
 });
 
 app.get('/tic-tac-toe', function(req, res) {
@@ -61,7 +61,6 @@ app.get('/tic-tac-toe', function(req, res) {
 
 require('./routes/posts')(app);
 require('./routes/uploads')(app);
-
 
 
 var favicon = require('serve-favicon');

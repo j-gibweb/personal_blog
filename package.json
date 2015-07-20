@@ -33,5 +33,11 @@
     "request": "^2.51.0",
     "serve-favicon": "^2.2.0",
     "underscore": "^1.7.0"
-  }
+  },
+  "devDependencies": {
+  "browser-sync": "^2.7.13",
+  "gulp": "^3.9.0",
+  "gulp-babel": "^5.1.0",
+  "gulp-concat": "^2.6.0"
+}
 }
