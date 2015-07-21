@@ -1,4 +1,7 @@
+React = require('react')
 
+
+console.log("hey")
 
 var Blog = React.createClass({
   getInitialState: function() {
