@@ -23,9 +23,6 @@
   <script src="/js/jquery.easing.min.js"></script>
   <script src="/js/main-theme.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
-
 
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -92,13 +89,19 @@
         </p>
          <ul class="list-inline banner-social-buttons">
             <li>
-                <a href="https://github.com/j-gibweb" class="btn btn-default btn-lg magnify"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                <a href="https://github.com/j-gibweb" class="btn btn-default btn-lg magnify" target="_blank">
+                  <i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span>
+                </a>
             </li>
             <li>
-              <a href="http://soundcloud.com/dearmistermanager/" class="btn btn-default btn-lg magnify"><i class="fa fa-soundcloud fa-fw"></i> <span class="network-name">SoundCloud</span></a>
+              <a href="http://soundcloud.com/dearmistermanager/" class="btn btn-default btn-lg magnify" target="_blank">
+                <i class="fa fa-soundcloud fa-fw"></i> <span class="network-name">SoundCloud</span>
+              </a>
             </li>
             <li>
-              <a href="http://www.linkedin.com/pub/james-weber/43/167/101/" class="btn btn-default btn-lg magnify"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">LinkedIn</span></a>
+              <a href="http://www.linkedin.com/pub/james-weber/43/167/101/" class="btn btn-default btn-lg magnify" target="_blank">
+                <i class="fa fa-linkedin fa-fw"></i> <span class="network-name">LinkedIn</span>
+              </a>
             </li>
         </ul>
       </div>
@@ -163,70 +166,7 @@
   </script>
 
 
-
-  <script type="text/jsx">
-    var Blog = React.createClass({
-      getInitialState: function() {
-        return {
-          posts: []
-        }
-      },
-      componentDidMount: function() {
-        $.get(this.props.source, function(data) {
-          if (this.isMounted()) {
-            this.setState({
-              posts: data
-            })
-          }
-        }.bind(this))
-      },
-      render: function() {
-        var posts = []
-        this.state.posts.forEach(function(post) {
-          posts.push(<Post id={post._id} title={post.title} pretty_url={post.pretty_url} body={post.body} />)
-        })
-        return (
-          <div>
-          <div class="container">
-            <div class="col-lg-8 col-lg-offset-2">
-              <div class="clearfix"></div>
-              <h1>Blog</h1>
-              <h5>My thoughts on things</h5> <hr />
-              {posts}
-            </div>
-          </div>
-          </div>
-          );
-      }
-    });
-
-    var Post = React.createClass({
-      getInitialState: function(){
-        return {}
-      },
-      render: function() {
-        var url = '/posts/' + this.props.pretty_url
-        return (
-          <div>
-            <h4 class='title tiny-text'>{this.props.title}</h4>
-            <p class='title tiny-text'>
-              <a href={url}>{this.props.id}</a> - {this.props.body.split(' ').length} words
-            </p>
-            <hr />
-          </div>
-        )
-      }
-    })
-
-    React.render(<Blog source="/posts" />, document.getElementById('blog'));
-  </script>
-
   <section id="blog" class="content-section text-center"></section>
-
-
-
-
-
 
   <!-- footer -->
   <footer>
@@ -236,3 +176,9 @@
   </footer>
 </body>
 </html>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
+<script src="/js/bundle.js"></script>
