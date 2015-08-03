@@ -22,6 +22,9 @@ module.exports = {
   output: {
     path: __dirname + "/app/public/dist",
     filename: "bundle.js"
+  },
+  node: {
+    // fs: "empty"
   }
 };
 

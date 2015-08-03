@@ -3,6 +3,8 @@ var Router = require('react-router-component');
 var Link = require('react-router-component');
 var $ = require('jquery');
 
+
+
 console.log("Blog is a go..")
 
 
@@ -80,28 +82,41 @@ var PostView = React.createClass({
   }
 });
 
+
 var PostShowView = React.createClass({
   getInitialState: function(){
     return {post: {}}
   },
-  componentDidMount: function() {
-    $.get('/posts/' + this.props.prettyUrl, function(data) {
-      if (this.isMounted()) {
-        console.log(data)
+  componentWillMount: function() {
+    $.get('/posts/' + this.props.prettyUrl)
+    .then(function(data, status, xhr) {
+      if (this.isMounted() && status == 'success') {
         this.setState({
           post: data
         })
+      } else {
+        console.log(status)
       }
-    }.bind(this))
+    }.bind(this));
+  },
+  componentDidMount: function() {
+    
+    // syntax highlightage
+    setTimeout(function() {
+      Array.prototype.slice.call(document.getElementsByTagName('pre')).forEach(function(item) {
+        console.log(item)
+        hljs.highlightBlock(item);
+      })
+    }, 1000) // the actual worst shit ever
+    
   },
   render: function() {
-    console.log(this.props, this.state)
     return (
       <div>
         <div className="container">
           <div className="col-lg-8 col-lg-offset-2">
             <h1>{this.state.post.title}</h1>
-            <p dangerouslySetInnerHTML={{__html: this.state.post.body}} />
+            <p style={{textAlign:'left'}} dangerouslySetInnerHTML={{__html: this.state.post.body}} />
           </div>
         </div>
       </div>
