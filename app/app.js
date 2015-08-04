@@ -6,14 +6,16 @@ var path = require('path');
 
 // multer gives request a 'files' property {}
 var multer  = require('multer');
-app.use(multer({ dest: './uploads/'}))
+app.use(multer({ dest: './uploads/'}));
 
 var mongoose = require("mongoose");
 
 var env = process.env.NODE_ENV || 'dev';
-if (env === 'dev') {require('./db');}
+if (env === 'dev') {
+  var secret = require('./secret');
+}
 // MongoDB config
-mongoose.connect(process.env.MONGO_CREDS, function(err, res) {
+mongoose.connect(secret.MONGO_CREDS, function(err, res) {
   if(err) {
     console.log('error connecting to MongoDB Database. ' + err);
   } else {
@@ -51,22 +53,24 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + "/views/index.html");
 });
 
+
+// todo, put these in some kind of /examples router or something
 app.get('/slideshow', function(req, res) {
   res.sendFile(__dirname + "/views/examples/slideshow.html");
 });
-
 app.get('/tic-tac-toe', function(req, res) {
   res.sendFile(__dirname + "/views/examples/tic-tac-toe/tic-tac-toe.html");
 });
+// 
+
 
 require('./routes/posts')(app);
 require('./routes/uploads')(app);
-
 
 var favicon = require('serve-favicon');
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
 var port = process.env.PORT || 3000;
 app.listen(port, function() {
-  console.log('shh, im working over here... port:' + port)
+  console.log('shh, im working over here... port:' + port);
 });

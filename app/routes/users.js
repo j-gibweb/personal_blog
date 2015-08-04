@@ -1,5 +1,17 @@
 var express = require('express');
 var router = express.Router();
+var _ = require('underscore');
+
+var jwtSecret = require('../secret').jwtSecret
+var jwt = require('jsonwebtoken');
+
+
+function createToken(user) {
+  return jwt.sign(
+    user, jwtSecret, { expiresInMinutes: 60*5 }
+    );
+}
+
 
 var isAuthenticated = function (req, res, next) {
   // if user is authenticated in the session, call the next() to call the next request handler 
@@ -13,20 +25,36 @@ var isAuthenticated = function (req, res, next) {
 
 module.exports = function(passport){
 
-  // router.get('/', function(req, res) {
-  //   res.render('layout', { message: req.flash('message') });
+  // router.post('/login', 
+  //   passport.authenticate('login', {
+  //     successRedirect: '/',
+  //     failureRedirect: '/login',
+  //     failureFlash : true  
+  //   })
+  // );
+
+  router.post('/login', 
+    function(req, res, next) {
+      passport.authenticate('login', 
+      function(err, user, info) {
+        var resp = {};
+        resp.username = user.username;
+        resp._id = user._id;
+        // whyyy doesn't _.omit work? 
+        // -> because this is not a normal object coming back from passport?
+        // res.session.passport
+        // console.log(res)
+        res.status(201).send({
+          token: createToken(resp)
+        });
+      })(req, res, next)
+    }
+  );
+  
+
+  // router.get('/login', function(req, res){
+  //   res.render('register', {message: req.flash('message')});
   // });
-
-  router.post('/login', passport.authenticate('login', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash : true  
-  }));
-
-
-  router.get('/login', function(req, res){
-    res.render('register',{message: req.flash('message')});
-  });
 
   // router.post('/signup', passport.authenticate('signup', {
   //   successRedirect: '/home',
@@ -34,10 +62,10 @@ module.exports = function(passport){
   //   failureFlash : true  
   // }));
 
-  router.get('/signout', function(req, res) {
-    req.logout();
-    res.redirect('/');
-  });
+  // router.get('/signout', function(req, res) {
+  //   req.logout();
+  //   res.redirect('/');
+  // });
 
   return router;
 }

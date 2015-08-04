@@ -3,11 +3,11 @@ var Router = require('react-router-component');
 var Link = require('react-router-component');
 var $ = require('jquery');
 
+var LoginView = require('./login.jsx');
 
 
-console.log("Blog is a go..")
 
-
+console.log("Blog is a go..");
 
 
 var Locations = Router.Locations;
@@ -22,6 +22,7 @@ var App = React.createClass({
       <div>
         <Locations hash>
           <Location path="/" source="/posts" handler={BlogView} />
+          <Location path="/login" handler={LoginView} />
           <Location path="/posts" source="/posts" handler={BlogView} />
           <Location path="/posts/:prettyUrl" handler={PostShowView} />
         </Locations>
@@ -69,12 +70,16 @@ var PostView = React.createClass({
     return {}
   },
   render: function() {
-    var url = '#/posts/' + cleanUrl(this.props.pretty_url)
+    // var url = '#/posts/' + cleanUrl(this.props.pretty_url)
     return (
       <div>
         <h4 className='title tiny-text'>{this.props.title}</h4>
         <p className='title tiny-text'>
-          <a href={url}>{this.props.id}</a> - {this.props.body.split(' ').length} words
+          <a href={'#/posts/' + cleanUrl(this.props.pretty_url)}>
+          {this.props.id}
+          </a> 
+          - {this.props.body.split(' ').length} words 
+          <a href={"/posts/edit/" + this.props.id} className='btn btn-default'>EDIT</a>
         </p>
         <hr />
       </div>
@@ -103,8 +108,8 @@ var PostShowView = React.createClass({
     
     // syntax highlightage
     setTimeout(function() {
-      Array.prototype.slice.call(document.getElementsByTagName('pre')).forEach(function(item) {
-        console.log(item)
+      Array.prototype.slice.call(document.getElementsByTagName('pre'))
+      .forEach(function(item) {
         hljs.highlightBlock(item);
       })
     }, 1000) // the actual worst shit ever

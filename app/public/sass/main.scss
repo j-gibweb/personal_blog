@@ -57,10 +57,6 @@ a {
   display: none;
 }
 
-.magnify:hover {
-  font-size: 24px;
-}
-
 .light {
   font-weight: 400;
 }
@@ -309,4 +305,8 @@ img {
 
 body {
   webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+}
+
+#blog {
+  min-height: 850px;
 }

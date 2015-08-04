@@ -1,4 +1,3 @@
-
 var Post = require('../models/post.js');
 
 var isAuthenticated = function (req, res, next) {
