@@ -4,7 +4,7 @@
   "author": "James Weber",
   "description": "personal blog",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app/app.js"
   },
   "license": "MIT",
   "main": "app.js",

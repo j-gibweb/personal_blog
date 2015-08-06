@@ -25,31 +25,39 @@ var isAuthenticated = function (req, res, next) {
 
 module.exports = function(passport){
 
-  // router.post('/login', 
-  //   passport.authenticate('login', {
-  //     successRedirect: '/',
-  //     failureRedirect: '/login',
-  //     failureFlash : true  
-  //   })
-  // );
-
   router.post('/login', 
-    function(req, res, next) {
-      passport.authenticate('login', 
-      function(err, user, info) {
-        var resp = {};
-        resp.username = user.username;
-        resp._id = user._id;
-        // whyyy doesn't _.omit work? 
-        // -> because this is not a normal object coming back from passport?
-        // res.session.passport
-        // console.log(res)
-        res.status(201).send({
-          token: createToken(resp)
-        });
-      })(req, res, next)
-    }
+    passport.authenticate('login', {
+      successRedirect: '/login-success',
+      failureRedirect: '/login',
+      failureFlash : true  
+    })
   );
+
+  router.get('/login-success', function(req, res) {
+    res.send(req.session);
+    // res.status(201).send({
+    //   token: createToken(req.session.user)
+    // });
+  });
+
+  // router.post('/login', 
+  //   function(req, res, next) {
+  //     passport.authenticate('login', 
+  //     function(err, user, info) {
+  //       var resp = {};
+  //       resp.username = user.username;
+  //       resp._id = user._id;
+  //       // whyyy doesn't _.omit work? 
+  //       // -> because this is not a normal object coming back from passport?
+
+  //       // req.session.passport['user'] = resp;
+  //       res.send(req.session)
+  //       // res.status(201).send({
+  //       //   token: createToken(resp)
+  //       // });
+  //     })(req, res, next)
+  //   }
+  // );
   
 
   // router.get('/login', function(req, res){

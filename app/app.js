@@ -10,10 +10,12 @@ app.use(multer({ dest: './uploads/'}));
 
 var mongoose = require("mongoose");
 
-var env = process.env.NODE_ENV || 'dev';
-if (env === 'dev') {
-  var secret = require('./secret');
-}
+// var env = process.env.NODE_ENV || 'dev';
+// if (env === 'dev') {
+  // var secret = require('./secret');
+// } else {
+  var secret = process.env;
+// }
 // MongoDB config
 mongoose.connect(secret.MONGO_CREDS, function(err, res) {
   if(err) {
@@ -24,7 +26,7 @@ mongoose.connect(secret.MONGO_CREDS, function(err, res) {
 });
 
 
-// app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components',  express.static(path.join(__dirname, 'bower_components')));
 app.use('/views',  express.static(path.join(__dirname, 'views')));

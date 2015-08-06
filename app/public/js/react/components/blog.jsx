@@ -7,7 +7,7 @@ var LoginView = require('./login.jsx');
 
 
 
-console.log("Blog is a go..");
+// console.log("Blog is a go..");
 
 
 var Locations = Router.Locations;
@@ -34,7 +34,8 @@ var App = React.createClass({
 var BlogView = React.createClass({
   getInitialState: function() {
     return {
-      posts: []
+      posts: [],
+      loggedIn: false
     }
   },
   componentDidMount: function() {
@@ -44,22 +45,46 @@ var BlogView = React.createClass({
           posts: data
         })
       }
-    }.bind(this))
+    }.bind(this));
+    if (localStorage.session) {
+      this.setState({loggedIn: true});
+    }
+  },
+  newPost: function(event) {
+    event.preventDefault();
+    
+    // all of this is shit, I know, I'm learning
+    $.ajax({
+      url: '/posts/new',
+      type: 'GET',
+      success: function(resp, status, xhr) {
+        // console.log(resp, status, xhr)
+        window.location.href = '/posts/new'
+      },
+      error: function(resp, status, reason) {
+        // console.log(resp, status, reason);
+        window.location.href = '#/login'
+      }
+    });
+
   },
   render: function() {
-    var posts = []
+    var posts = [];
+    var self = this;
     this.state.posts.forEach(function(post) {
-      posts.push(<PostView id={post._id} title={post.title} pretty_url={post.pretty_url} body={post.body} />)
-    })
+      posts.push(
+        <PostView id={post._id} title={post.title} pretty_url={post.pretty_url} 
+                  body={post.body} loggedIn={self.state.loggedIn} />
+        )
+    });
     return (
-      <div>
       <div className="container">
         <div className="col-lg-8 col-lg-offset-2">
           <div className="clearfix"></div>
+          {this.state.loggedIn ? <a onClick={this.newPost} className='btn btn-default pull-left'>NEW POST</a> : null }
           <h1>my thoughts on things</h1><hr />
           {posts}
         </div>
-      </div>
       </div>
       );
   }
@@ -69,17 +94,36 @@ var PostView = React.createClass({
   getInitialState: function(){
     return {}
   },
+  deletePost: function(event) {
+    var self = this;
+    event.preventDefault();
+    $.ajax({
+      type: 'DELETE',
+      url: 'posts/' + self.props.id,
+    }).done(function() {
+      var node = self.getDOMNode();
+      React.unmountComponentAtNode(node);
+      $(node).remove();
+    });
+
+  },
   render: function() {
-    // var url = '#/posts/' + cleanUrl(this.props.pretty_url)
+    var url = '#/posts/' + cleanUrl(this.props.pretty_url);
+    // console.log(this.props.loggedIn)
     return (
       <div>
         <h4 className='title tiny-text'>{this.props.title}</h4>
         <p className='title tiny-text'>
-          <a href={'#/posts/' + cleanUrl(this.props.pretty_url)}>
-          {this.props.id}
+          <a href={url}>
+            {this.props.id}
           </a> 
-          - {this.props.body.split(' ').length} words 
-          <a href={"/posts/edit/" + this.props.id} className='btn btn-default'>EDIT</a>
+          - {this.props.body.split(' ').length} words
+          
+          {this.props.loggedIn ? <div className="pull-left">
+            <a href={'/posts/edit/' + this.props.id} className='btn btn-default'>EDIT</a>
+            <button onClick={this.deletePost} className='deletePost btn btn-default'>DELETE</button>
+            </div> : null}
+
         </p>
         <hr />
       </div>
@@ -100,7 +144,7 @@ var PostShowView = React.createClass({
           post: data
         })
       } else {
-        console.log(status)
+        // console.log(status)
       }
     }.bind(this));
   },
