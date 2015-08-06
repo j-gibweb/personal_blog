@@ -1,10 +1,4 @@
-<% include head.ejs %>
-<% include simple_nav.ejs %>
 
-<!-- wysihtml core javascript with default toolbar functions --> 
-<script src="/bower_components/wysihtml/dist/wysihtml5x-toolbar.min.js"></script>
-<!-- rules defining tags, attributes and classes that are allowed -->
-<script src="/bower_components/wysihtml/parser_rules/advanced_and_extended.js"></script>
 
 <style type="text/css">
 input#postTitle::selection{background: #66D9D3;}
@@ -50,6 +44,15 @@ input#postTitle::selection{background: #66D9D3;}
     </div>
   </div>
 </div>
+
+<!-- wysihtml core javascript with default toolbar functions --> 
+<script src="/bower_components/wysihtml/dist/wysihtml5x-toolbar.min.js"></script>
+<!-- rules defining tags, attributes and classes that are allowed -->
+<script src="/bower_components/wysihtml/parser_rules/advanced_and_extended.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<script src="/dist/bundle.js"></script>
+
 
 <script type="text/javascript">
 // populate form if this is /edit

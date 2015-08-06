@@ -3,7 +3,7 @@ var Post = require('../models/post.js');
 var isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())
     return next();
-  res.redirect('/');
+  res.status(403).send('not logged in') // res.redirect('/');
 }
 
 module.exports = function(app) {
@@ -52,7 +52,8 @@ module.exports = function(app) {
   };
 
   newPost = function(req, res) {
-    res.render('editPost', {post: {}})
+    // res.send(200)
+    res.render('editPost', {post: {}});
   };
 
   addPost = function(req, res) {

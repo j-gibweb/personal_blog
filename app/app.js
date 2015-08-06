@@ -24,7 +24,7 @@ mongoose.connect(secret.MONGO_CREDS, function(err, res) {
 });
 
 
-// app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components',  express.static(path.join(__dirname, 'bower_components')));
 app.use('/views',  express.static(path.join(__dirname, 'views')));

@@ -9,10 +9,14 @@ var LoginView = React.createClass({
     e.preventDefault();
     Auth.login(this.state)
     .then(function(response, status, xhr) {
-      localStorage.setItem('jwt', response.token);
-      console.log(localStorage)
-      // window.history.back();
+      // console.log(response.passport.user)
+      response.passport.user ? localStorage.setItem('session', response.passport.user) : null ;
+      window.history.back();
     });
+  },
+  logout: function() {
+    localStorage.setItem('session', "");
+    window.history.back();
   },
   update: function(){
     this.setState({
@@ -38,6 +42,13 @@ var LoginView = React.createClass({
                   <button type="submit" className="btn btn-default">Log In</button>
               </div>
           </form>
+          
+          <form role="form" onSubmit={this.logout}>
+            <div className="form-group">
+                <button type="submit" className="btn btn-default">Log Out</button>
+            </div>
+          </form>
+          
           </div>
         </div>
       </div>
