@@ -2,7 +2,7 @@
 
 module.exports = {
   cache: true,
-  context: __dirname + "/app/public",
+  context: __dirname + "/public",
   entry: "./main.js",
   devtool: 'eval',
   module: {
@@ -20,7 +20,7 @@ module.exports = {
     ]
   },
   output: {
-    path: __dirname + "/app/public/dist",
+    path: __dirname + "/public/dist",
     filename: "bundle.js"
   },
   node: {

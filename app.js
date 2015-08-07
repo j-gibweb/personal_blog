@@ -10,12 +10,13 @@ app.use(multer({ dest: './uploads/'}));
 
 var mongoose = require("mongoose");
 
-// var env = process.env.NODE_ENV || 'dev';
-// if (env === 'dev') {
-  // var secret = require('./secret');
-// } else {
+var env = process.env.NODE_ENV || 'dev';
+if (env === 'dev') {
+  var secret = require('./secret');
+} else {
   var secret = process.env;
-// }
+}
+
 // MongoDB config
 mongoose.connect(secret.MONGO_CREDS, function(err, res) {
   if(err) {
@@ -57,13 +58,8 @@ app.get('/', function(req, res) {
 
 
 // todo, put these in some kind of /examples router or something
-app.get('/slideshow', function(req, res) {
-  res.sendFile(__dirname + "/views/examples/slideshow.html");
-});
-app.get('/tic-tac-toe', function(req, res) {
-  res.sendFile(__dirname + "/views/examples/tic-tac-toe/tic-tac-toe.html");
-});
-// 
+app.get('/slideshow', function(req, res) {res.sendFile(__dirname + "/views/examples/slideshow.html")})
+app.get('/tic-tac-toe', function(req, res) {res.sendFile(__dirname + "/views/examples/tic-tac-toe/tic-tac-toe.html")});
 
 
 require('./routes/posts')(app);

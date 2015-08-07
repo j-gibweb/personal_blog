@@ -2,15 +2,15 @@ var express = require('express');
 var router = express.Router();
 var _ = require('underscore');
 
-var jwtSecret = require('../secret').jwtSecret
-var jwt = require('jsonwebtoken');
+// var jwtSecret = require('../secret').jwtSecret
+// var jwt = require('jsonwebtoken');
 
 
-function createToken(user) {
-  return jwt.sign(
-    user, jwtSecret, { expiresInMinutes: 60*5 }
-    );
-}
+// function createToken(user) {
+//   return jwt.sign(
+//     user, jwtSecret, { expiresInMinutes: 60*5 }
+//     );
+// }
 
 
 var isAuthenticated = function (req, res, next) {

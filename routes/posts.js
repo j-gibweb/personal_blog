@@ -24,8 +24,7 @@ module.exports = function(app) {
 
   findByUrl = function(req, res) {
     return Post.findOne(req.params, function(err, post) {
-      return res.send(post)
-      // return res.render('show', {post: post});
+      return res.send(post);
     })
   }
 
