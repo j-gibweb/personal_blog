@@ -24,6 +24,7 @@
     "express-partials": "^0.3.0",
     "express-session": "^1.9.3",
     "favicon": "0.0.2",
+    "flux": "^2.0.3",
     "fs-extra": "^0.13.0",
     "jade": "^1.8.2",
     "jquery": "^2.1.4",

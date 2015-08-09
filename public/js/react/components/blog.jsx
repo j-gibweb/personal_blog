@@ -6,8 +6,8 @@ var $ = require('jquery');
 var LoginView = require('./login.jsx');
 
 
+var AppActions = require('../actions/app-actions');
 
-// console.log("Blog is a go..");
 
 
 var Locations = Router.Locations;
@@ -68,11 +68,13 @@ var BlogView = React.createClass({
     });
 
   },
+  test: function() {
+    AppActions.addItem('some item')
+  },
   render: function() {
-    var posts = [];
     var self = this;
-    this.state.posts.forEach(function(post) {
-      posts.push(
+    var posts = this.state.posts.map(function(post) {
+      return (
         <PostView id={post._id} title={post.title} pretty_url={post.pretty_url} 
                   body={post.body} loggedIn={self.state.loggedIn} />
         )
@@ -81,6 +83,7 @@ var BlogView = React.createClass({
       <div className="container">
         <div className="col-lg-8 col-lg-offset-2">
           <div className="clearfix"></div>
+          <h1 onClick={this.test}>app-actions</h1>
           {this.state.loggedIn ? <a onClick={this.newPost} className='btn btn-default pull-left'>NEW POST</a> : null }
           <h1>my thoughts on things</h1><hr />
           {posts}
