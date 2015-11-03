@@ -7,6 +7,7 @@ var LoginView = require('./login.jsx');
 
 
 var AppActions = require('../actions/app-actions');
+var AppStore = require('../stores/app-stores');
 
 
 
@@ -23,7 +24,7 @@ var App = React.createClass({
         <Locations hash>
           <Location path="/" source="/posts" handler={BlogView} />
           <Location path="/login" handler={LoginView} />
-          <Location path="/posts" source="/posts" handler={BlogView} />
+          <Location path="/posts" handler={BlogView} />
           <Location path="/posts/:prettyUrl" handler={PostShowView} />
         </Locations>
       </div>
@@ -38,13 +39,15 @@ var BlogView = React.createClass({
       loggedIn: false
     }
   },
+
   componentDidMount: function() {
-    $.get(this.props.source, function(data) {
+    
+    AppStore.getPosts().then(function(data) {
       if (this.isMounted()) {
         this.setState({
           posts: data
-        })
-      }
+        });
+      }  
     }.bind(this));
     if (localStorage.session) {
       this.setState({loggedIn: true});
@@ -68,9 +71,6 @@ var BlogView = React.createClass({
     });
 
   },
-  test: function() {
-    AppActions.addItem('some item')
-  },
   render: function() {
     var self = this;
     var posts = this.state.posts.map(function(post) {
@@ -83,7 +83,6 @@ var BlogView = React.createClass({
       <div className="container">
         <div className="col-lg-8 col-lg-offset-2">
           <div className="clearfix"></div>
-          <h1 onClick={this.test}>app-actions</h1>
           {this.state.loggedIn ? <a onClick={this.newPost} className='btn btn-default pull-left'>NEW POST</a> : null }
           <h1>my thoughts on things</h1><hr />
           {posts}
@@ -140,16 +139,13 @@ var PostShowView = React.createClass({
     return {post: {}}
   },
   componentWillMount: function() {
-    $.get('/posts/' + this.props.prettyUrl)
-    .then(function(data, status, xhr) {
-      if (this.isMounted() && status == 'success') {
+    var resp = AppStore.getPost(this.props.prettyUrl)
+      .then(function(data) {
         this.setState({
           post: data
-        })
-      } else {
-        // console.log(status)
-      }
-    }.bind(this));
+        });
+      }.bind(this))
+    
   },
   componentDidMount: function() {
     
@@ -162,11 +158,15 @@ var PostShowView = React.createClass({
     }, 1000) // the actual worst shit ever
     
   },
+  goBack: function() {
+    window.location.href = "#/";
+  },
   render: function() {
     return (
       <div>
         <div className="container">
           <div className="col-lg-8 col-lg-offset-2">
+            <button onClick={this.goBack} className="backBtn">&lt;</button>
             <h1>{this.state.post.title}</h1>
             <p style={{textAlign:'left'}} dangerouslySetInnerHTML={{__html: this.state.post.body}} />
           </div>

@@ -9,7 +9,6 @@ var multer  = require('multer');
 app.use(multer({ dest: './uploads/'}));
 
 var mongoose = require("mongoose");
-
 var env = process.env.NODE_ENV || 'dev';
 if (env === 'dev') {
   var secret = require('./secret');
